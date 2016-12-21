@@ -1,0 +1,15 @@
+{
+  "_id": "_design/oauth_code",
+  "language": "javascript",
+  "views": {
+    "selectCodeById": {
+      "map": "function(doc) {if(doc.docType == \"oauth_code\"){emit([doc._id],doc); }}"
+    },
+    "selectCodeByCode": {
+      "map": "function(doc) {if(doc.docType == \"oauth_code\"){emit([doc.code],doc); }}"
+    },
+    "selectCodeByCodeAndClientId": {
+      "map": "function(doc) {if(doc.docType == \"oauth_code\"){emit([doc.code,doc.clientId],doc); }}"
+    }
+  }
+}

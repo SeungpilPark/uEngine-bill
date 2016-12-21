@@ -1,0 +1,139 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Contact Us</title>
+
+    <style type="text/css">
+        .ReadMsgBody {
+            width: 100%;
+            background-color: #ffffff;
+        }
+
+        .ExternalClass {
+            width: 100%;
+            background-color: #ffffff;
+        }
+
+        body {
+            width: 100%;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            font-family: Arial, Helvetica, sans-serif
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        @media only screen and (max-width: 640px) {
+            body[yahoo] .deviceWidth {
+                width: 440px !important;
+                padding: 0;
+            }
+
+            body[yahoo] .center {
+                text-align: center !important;
+            }
+        }
+
+        @media only screen and (max-width: 479px) {
+            body[yahoo] .deviceWidth {
+                width: 280px !important;
+                padding: 0;
+            }
+
+            body[yahoo] .center {
+                text-align: center !important;
+            }
+        }
+    </style>
+</head>
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" yahoo="fix"
+      style="font-family: Arial, Helvetica, sans-serif">
+
+<!-- Wrapper -->
+<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center">
+    <tr>
+        <td width="100%" valign="top" bgcolor="#ffffff" style="padding-top:20px">
+
+            <!--Start Two Texts-->
+            <table width="700" border="0" cellpadding="0" cellspacing="0" align="center" class="deviceWidth">
+                <tr>
+                    <td width="100%" bgcolor="#f7f7f7">
+                        <!--End Right box-->
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0" align="right"
+                               class="deviceWidth">
+                            <tr>
+                                <td class="center">
+                                    <table cellpadding="0" cellspacing="0" align="center" border="0" width="100%">
+                                        <tr>
+                                            <td class="center"
+                                                style="font-size: 16px; color: #303030; font-weight: bold; text-align: center; font-family: Arial, Helvetica, sans-serif; line-height: 15px; vertical-align: middle; padding: 20px 20px 20px;">
+                                                고객명
+                                            </td>
+                                            <td class="center"
+                                                style="font-size: 12px; color: #687074; font-weight: bold; text-align: center; font-family: Arial, Helvetica, sans-serif; line-height: 15px; vertical-align: middle; padding: 20px 20px 20px; ">
+                                                ${name}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="center"
+                                                style="font-size: 16px; color: #303030; font-weight: bold; text-align: center; font-family: Arial, Helvetica, sans-serif; line-height: 15px; vertical-align: middle; padding: 20px 20px 20px;">
+                                                이메일
+                                            </td>
+                                            <td class="center"
+                                                style="font-size: 12px; color: #687074; font-weight: bold; text-align: center; font-family: Arial, Helvetica, sans-serif; line-height: 15px; vertical-align: middle; padding: 20px 20px 20px; ">
+                                                ${email}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="center"
+                                                style="font-size: 16px; color: #303030; font-weight: bold; text-align: center; font-family: Arial, Helvetica, sans-serif; line-height: 15px; vertical-align: middle; padding: 20px 20px 20px;">
+                                                연락처
+                                            </td>
+                                            <td class="center"
+                                                style="font-size: 12px; color: #687074; font-weight: bold; text-align: center; font-family: Arial, Helvetica, sans-serif; line-height: 15px; vertical-align: middle; padding: 20px 20px 20px; ">
+                                                ${telephone}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="center"
+                                                style="font-size: 16px; color: #303030; font-weight: bold; text-align: center; font-family: Arial, Helvetica, sans-serif; line-height: 15px; vertical-align: middle; padding: 20px 20px 20px;">
+                                                제목
+                                            </td>
+                                            <td class="center"
+                                                style="font-size: 12px; color: #687074; font-weight: bold; text-align: center; font-family: Arial, Helvetica, sans-serif; line-height: 15px; vertical-align: middle; padding: 20px 20px 20px; ">
+                                                ${subject}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="center"
+                                                style="font-size: 16px; color: #303030; font-weight: bold; text-align: center; font-family: Arial, Helvetica, sans-serif; line-height: 15px; vertical-align: middle; padding: 20px 20px 20px;">
+                                                내용
+                                            </td>
+                                            <td class="center"
+                                                style="font-size: 12px; color: #687074; font-weight: bold; text-align: center; font-family: Arial, Helvetica, sans-serif; line-height: 15px; vertical-align: middle; padding: 20px 20px 20px; ">
+                                                ${message}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <!--End Right box-->
+                    </td>
+                </tr>
+            </table>
+            <!--End Two Texts-->
+
+            <div style="height:15px">&nbsp;</div>
+            <!-- divider-->
+        </td>
+    </tr>
+</table>
+<!-- End Wrapper -->
+</body>
+</html>

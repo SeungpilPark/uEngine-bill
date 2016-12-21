@@ -1,0 +1,6 @@
+<definitions id="definitions">
+    <process id="helloProcess">
+        <startEvent id="start"/>
+        <endEvent id="end"/>
+    </process>
+</definitions>

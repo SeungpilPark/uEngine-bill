@@ -1,0 +1,1205 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "OCE IAM",
+    "description": "OCE IAM REST API CONSOLE",
+    "version": "1.0.0"
+  },
+  "host": "localhost:8080",
+  "schemes": [
+    "http"
+  ],
+  "basePath": "/rest/v1",
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/user": {
+      "get": {
+        "summary": "List user",
+        "description": "list of user",
+        "parameters": [
+        ],
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of users"
+          },
+          "204": {
+            "description": "NO_CONTENT"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "400": {
+            "description": "BAD_REQUEST"
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED"
+          }
+        },
+        "security": [
+          {
+            "management_key": []
+          },
+          {
+            "management_secret": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "Create User",
+        "description": "create user",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "user body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "201": {
+            "description": "CREATED"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "400": {
+            "description": "BAD_REQUEST"
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED"
+          },
+          "409": {
+            "description": "CONFLICT"
+          }
+        },
+        "security": [
+          {
+            "management_key": []
+          },
+          {
+            "management_secret": []
+          }
+        ]
+      }
+    },
+    "/user/{_id}": {
+      "get": {
+        "summary": "Get User",
+        "description": "get user",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "User"
+          },
+          "204": {
+            "description": "NO_CONTENT"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "400": {
+            "description": "BAD_REQUEST"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED"
+          }
+        },
+        "security": [
+          {
+            "management_key": []
+          },
+          {
+            "management_secret": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "Update User",
+        "description": "update user",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "user",
+            "in": "body",
+            "description": "user body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "400": {
+            "description": "BAD_REQUEST"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED"
+          },
+          "409": {
+            "description": "CONFLICT"
+          }
+        },
+        "security": [
+          {
+            "management_key": []
+          },
+          {
+            "management_secret": []
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete User",
+        "description": "delete user",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "204": {
+            "description": "NO_CONTENT"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "400": {
+            "description": "BAD_REQUEST"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED"
+          }
+        },
+        "security": [
+          {
+            "management_key": []
+          },
+          {
+            "management_secret": []
+          }
+        ]
+      }
+    },
+    "/scope": {
+      "get": {
+        "summary": "List scope",
+        "description": "list of scope",
+        "parameters": [
+        ],
+        "tags": [
+          "Scope"
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of scopes"
+          },
+          "204": {
+            "description": "NO_CONTENT"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "400": {
+            "description": "BAD_REQUEST"
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED"
+          }
+        },
+        "security": [
+          {
+            "management_key": []
+          },
+          {
+            "management_secret": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "Create Scope",
+        "description": "create scope",
+        "parameters": [
+          {
+            "name": "scope",
+            "in": "body",
+            "description": "scope body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Scope"
+            }
+          }
+        ],
+        "tags": [
+          "Scope"
+        ],
+        "responses": {
+          "201": {
+            "description": "CREATED"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "400": {
+            "description": "BAD_REQUEST"
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED"
+          },
+          "409": {
+            "description": "CONFLICT"
+          }
+        },
+        "security": [
+          {
+            "management_key": []
+          },
+          {
+            "management_secret": []
+          }
+        ]
+      }
+    },
+    "/scope/{_id}": {
+      "get": {
+        "summary": "Get Scope",
+        "description": "get scope",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "scope id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Scope"
+        ],
+        "responses": {
+          "200": {
+            "description": "Scope"
+          },
+          "204": {
+            "description": "NO_CONTENT"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "400": {
+            "description": "BAD_REQUEST"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED"
+          }
+        },
+        "security": [
+          {
+            "management_key": []
+          },
+          {
+            "management_secret": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "Update Scope",
+        "description": "update scope",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "scope id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "scope",
+            "in": "body",
+            "description": "scope body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Scope"
+            }
+          }
+        ],
+        "tags": [
+          "Scope"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "400": {
+            "description": "BAD_REQUEST"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED"
+          },
+          "409": {
+            "description": "CONFLICT"
+          }
+        },
+        "security": [
+          {
+            "management_key": []
+          },
+          {
+            "management_secret": []
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete Scope",
+        "description": "delete scope",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "scope id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Scope"
+        ],
+        "responses": {
+          "204": {
+            "description": "NO_CONTENT"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "400": {
+            "description": "BAD_REQUEST"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED"
+          }
+        },
+        "security": [
+          {
+            "management_key": []
+          },
+          {
+            "management_secret": []
+          }
+        ]
+      }
+    },
+    "/client": {
+      "get": {
+        "summary": "List client",
+        "description": "list of client",
+        "parameters": [
+        ],
+        "tags": [
+          "Client"
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of clients"
+          },
+          "204": {
+            "description": "NO_CONTENT"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "400": {
+            "description": "BAD_REQUEST"
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED"
+          }
+        },
+        "security": [
+          {
+            "management_key": []
+          },
+          {
+            "management_secret": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "Create Client",
+        "description": "create client",
+        "parameters": [
+          {
+            "name": "client",
+            "in": "body",
+            "description": "client body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Client"
+            }
+          }
+        ],
+        "tags": [
+          "Client"
+        ],
+        "responses": {
+          "201": {
+            "description": "CREATED"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "400": {
+            "description": "BAD_REQUEST"
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED"
+          },
+          "409": {
+            "description": "CONFLICT"
+          }
+        },
+        "security": [
+          {
+            "management_key": []
+          },
+          {
+            "management_secret": []
+          }
+        ]
+      }
+    },
+    "/client/{_id}": {
+      "get": {
+        "summary": "Get Client",
+        "description": "get client",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "client id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Client"
+        ],
+        "responses": {
+          "200": {
+            "description": "Client"
+          },
+          "204": {
+            "description": "NO_CONTENT"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "400": {
+            "description": "BAD_REQUEST"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED"
+          }
+        },
+        "security": [
+          {
+            "management_key": []
+          },
+          {
+            "management_secret": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "Update Client",
+        "description": "update client",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "client id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "client",
+            "in": "body",
+            "description": "client body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Client"
+            }
+          }
+        ],
+        "tags": [
+          "Client"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "400": {
+            "description": "BAD_REQUEST"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED"
+          },
+          "409": {
+            "description": "CONFLICT"
+          }
+        },
+        "security": [
+          {
+            "management_key": []
+          },
+          {
+            "management_secret": []
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete Client",
+        "description": "delete client",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "client id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Client"
+        ],
+        "responses": {
+          "204": {
+            "description": "NO_CONTENT"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "400": {
+            "description": "BAD_REQUEST"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED"
+          }
+        },
+        "security": [
+          {
+            "management_key": []
+          },
+          {
+            "management_secret": []
+          }
+        ]
+      }
+    },
+    "/client/{clientId}/scope": {
+      "get": {
+        "summary": "List client's scope",
+        "description": "list of client's scope",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "client id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Client"
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of scopes"
+          },
+          "204": {
+            "description": "NO_CONTENT"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "400": {
+            "description": "BAD_REQUEST"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED"
+          }
+        },
+        "security": [
+          {
+            "management_key": []
+          },
+          {
+            "management_secret": []
+          }
+        ]
+      }
+    },
+    "/client/{clientId}/scope/{scopeId}": {
+      "post": {
+        "summary": "Create client's Scope",
+        "description": "create client's scope",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "client id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "scopeId",
+            "in": "path",
+            "description": "scope id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Client"
+        ],
+        "responses": {
+          "201": {
+            "description": "CREATED"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "400": {
+            "description": "BAD_REQUEST"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED"
+          },
+          "409": {
+            "description": "CONFLICT"
+          }
+        },
+        "security": [
+          {
+            "management_key": []
+          },
+          {
+            "management_secret": []
+          }
+        ]
+      },
+      "get": {
+        "summary": "Get client's Scope",
+        "description": "get client's scope",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "client id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "scopeId",
+            "in": "path",
+            "description": "scope id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Client"
+        ],
+        "responses": {
+          "200": {
+            "description": "Scope"
+          },
+          "204": {
+            "description": "NO_CONTENT"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "400": {
+            "description": "BAD_REQUEST"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED"
+          }
+        },
+        "security": [
+          {
+            "management_key": []
+          },
+          {
+            "management_secret": []
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete client's Scope",
+        "description": "delete client's scope",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "description": "client id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "scopeId",
+            "in": "path",
+            "description": "scope id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Client"
+        ],
+        "responses": {
+          "204": {
+            "description": "NO_CONTENT"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "400": {
+            "description": "BAD_REQUEST"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED"
+          }
+        },
+        "security": [
+          {
+            "management_key": []
+          },
+          {
+            "management_secret": []
+          }
+        ]
+      }
+    },
+    "/token": {
+      "post": {
+        "summary": "Create access token",
+        "description": "create access token",
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "body",
+            "description": "access_token body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AccessToken"
+            }
+          }
+        ],
+        "tags": [
+          "Token"
+        ],
+        "responses": {
+          "201": {
+            "description": "CREATED"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "400": {
+            "description": "BAD_REQUEST"
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED"
+          },
+          "409": {
+            "description": "CONFLICT"
+          }
+        },
+        "security": [
+          {
+            "management_key": []
+          },
+          {
+            "management_secret": []
+          }
+        ]
+      }
+    },
+    "/token/{token}": {
+      "get": {
+        "summary": "Get Access Token",
+        "description": "get access token",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "description": "token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Token"
+        ],
+        "responses": {
+          "200": {
+            "description": "Access Token"
+          },
+          "204": {
+            "description": "NO_CONTENT"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "400": {
+            "description": "BAD_REQUEST"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED"
+          }
+        },
+        "security": [
+          {
+            "management_key": []
+          },
+          {
+            "management_secret": []
+          }
+        ]
+      }
+    },
+    "/token/{_id}": {
+      "get": {
+        "summary": "Get Access Token",
+        "description": "get access token",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "token id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Token"
+        ],
+        "responses": {
+          "200": {
+            "description": "Access Token"
+          },
+          "204": {
+            "description": "NO_CONTENT"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "400": {
+            "description": "BAD_REQUEST"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED"
+          }
+        },
+        "security": [
+          {
+            "management_key": []
+          },
+          {
+            "management_secret": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "Update Access Token",
+        "description": "update access token",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "token id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "access_token",
+            "in": "body",
+            "description": "access_token body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AccessToken"
+            }
+          }
+        ],
+        "tags": [
+          "Token"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "400": {
+            "description": "BAD_REQUEST"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED"
+          },
+          "409": {
+            "description": "CONFLICT"
+          }
+        },
+        "security": [
+          {
+            "management_key": []
+          },
+          {
+            "management_secret": []
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete Access Token",
+        "description": "delete access token",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "token id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Token"
+        ],
+        "responses": {
+          "204": {
+            "description": "NO_CONTENT"
+          },
+          "401": {
+            "description": "UNAUTHORIZED"
+          },
+          "400": {
+            "description": "BAD_REQUEST"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED"
+          }
+        },
+        "security": [
+          {
+            "management_key": []
+          },
+          {
+            "management_secret": []
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "management_key": {
+      "type": "apiKey",
+      "name": "management-key",
+      "in": "header"
+    },
+    "management_secret": {
+      "type": "apiKey",
+      "name": "management-secret",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "userName": {
+          "type": "string"
+        },
+        "userPassword": {
+          "type": "string"
+        },
+        "level": {
+          "type": "number"
+        }
+      }
+    },
+    "Scope": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "Client": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "clientTrust": {
+          "type": "string"
+        },
+        "clientType": {
+          "type": "string"
+        },
+        "activeClient": {
+          "type": "string"
+        },
+        "authorizedGrantTypes": {
+          "type": "string"
+        },
+        "webServerRedirectUri": {
+          "type": "string"
+        },
+        "refreshTokenValidity": {
+          "type": "string"
+        },
+        "codeLifetime": {
+          "type": "number"
+        },
+        "refreshTokenLifetime": {
+          "type": "number"
+        },
+        "accessTokenLifetime": {
+          "type": "number"
+        },
+        "jwtTokenLifetime": {
+          "type": "number"
+        }
+      }
+    },
+    "AccessToken": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "scopes": {
+          "type": "string"
+        },
+        "oauthUserId": {
+          "type": "string"
+        },
+        "clientId": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

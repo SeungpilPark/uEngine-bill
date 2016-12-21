@@ -1,0 +1,35 @@
+{
+  "_id": "_design/oauth_user",
+  "language": "javascript",
+  "views": {
+    "selectById": {
+      "map": "function(doc) { if(doc.docType == \"oauth_user\"){ emit([doc._id], doc); }}"
+    },
+    "selectByManagementId": {
+      "map": "function(doc) { if(doc.docType == \"oauth_user\"){ emit([doc.managementId], doc); }}"
+    },
+    "selectByManagementIdLikeUserName": {
+      "map": "function(doc) { if(doc.docType == \"oauth_user\"){ var words = {}; doc.userName.replace(/\\w+/g, function(word) { words[word.toLowerCase()] = true}); for(w in words) { emit([w, doc.managementId], doc); }}}"
+    },
+    "countByManagementId": {
+      "map": "function(doc) { if(doc.docType == \"oauth_user\"){ emit([doc.managementId], null); }}",
+      "reduce": "_count"
+    },
+    "countByManagementIdLikeUserName": {
+      "map": "function(doc) { if(doc.docType == \"oauth_user\"){ var words = {}; doc.userName.replace(/\\w+/g, function(word) { words[word.toLowerCase()] = true}); for(w in words) { emit([w, doc.managementId], doc); }}}",
+      "reduce": "_count"
+    },
+    "selectByManagementIdAndUserName": {
+      "map": "function(doc) { if(doc.docType == \"oauth_user\"){ emit([doc.managementId, doc.userName], doc); }}"
+    },
+    "selectByManagementIdAndCredential": {
+      "map": "function(doc) { if(doc.docType == \"oauth_user\"){emit([doc.managementId, doc.userName, doc.userPassword], doc); }}"
+    },
+    "selectByManagementIdAndId": {
+      "map": "function(doc) { if(doc.docType == \"oauth_user\"){emit([doc.managementId, doc._id], doc); }}"
+    },
+    "selectByUserName": {
+      "map": "function(doc) { if(doc.docType == \"oauth_user\"){ emit(doc.userName, doc); }}"
+    }
+  }
+}

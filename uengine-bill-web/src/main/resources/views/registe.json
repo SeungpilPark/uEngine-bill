@@ -1,0 +1,9 @@
+{
+  "_id": "_design/registe",
+  "language": "javascript",
+  "views": {
+    "selectByUserIdAndToken": {
+      "map": "function(doc) {if(doc.docType == \"registe\"){emit([doc.userId,doc.token],doc); }}"
+    }
+  }
+}

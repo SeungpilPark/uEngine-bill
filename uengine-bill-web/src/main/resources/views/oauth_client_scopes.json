@@ -1,0 +1,12 @@
+{
+  "_id": "_design/oauth_client_scopes",
+  "language": "javascript",
+  "views": {
+    "selectClientScopesByClientId": {
+      "map": "function(doc) {if(doc.docType == \"oauth_client_scopes\"){emit([doc.clientId],doc); }}"
+    },
+    "selectClientScopesByClientIdAndScopeId": {
+      "map": "function(doc) {if(doc.docType == \"oauth_client_scopes\"){emit([doc.clientId,doc.scopeId],doc); }}"
+    }
+  }
+}

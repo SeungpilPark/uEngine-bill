@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+		version="2.0">
+
+	<description>uengine JSP Tag Library</description>
+	<tlib-version>1.0</tlib-version>
+	<short-name>uengine</short-name>
+	<uri>http://www.uengine.io/tags</uri>
+
+	<tag>
+		<name>message</name>
+		<tag-class>org.uengine.garuda.web.tags.MessageTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<description>A MessageSourceResolvable argument (direct or through JSP EL).
+				Fits nicely when used in conjunction with Spring's own validation error
+				classes which all implement the MessageSourceResolvable interface. For
+				example, this allows you to iterate over all of the errors in a form,
+				passing each error (using a runtime expression) as the value of this
+				'message' attribute, thus effecting the easy display of such error
+				messages.</description>
+			<name>message</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>The code (key) to use when looking up the message.
+			If code is not provided, the text attribute will be used.</description>
+			<name>code</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>Set optional message arguments for this tag, as a
+			(comma-)delimited String (each String argument can contain JSP EL),
+			an Object array (used as argument array), or a single Object (used
+			as single argument). You can additionally use nested spring:argument
+			tags.</description>
+			<name>arguments</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>The separator character to be used for splitting the
+			arguments string value; defaults to a 'comma' (',').</description>
+			<name>argumentSeparator</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>Default text to output when a message for the given code
+			could not be found. If both text and code are not set, the tag will
+			output null.</description>
+			<name>text</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>The string to use when binding the result to the page,
+			request, session or application scope. If not specified, the result
+			gets outputted to the writer (i.e. typically directly to the JSP).</description>
+			<name>var</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>The scope to use when exporting the result to a variable.
+			This attribute is only used when var is also set. Possible values are
+			page, request, session and application.</description>
+			<name>scope</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>Set HTML escaping for this tag, as boolean value.
+			Overrides the default HTML escaping setting for the current page.</description>
+			<name>htmlEscape</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>Set JavaScript escaping for this tag, as boolean value. Default is false.</description>
+			<name>javaScriptEscape</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+</taglib>

@@ -1,0 +1,35 @@
+{
+  "_id": "_design/management",
+  "language": "javascript",
+  "views": {
+    "selectById": {
+      "map": "function(doc) {if(doc.docType == \"management\"){emit([doc._id],doc); }}"
+    },
+
+    "selectByKey": {
+      "map": "function(doc) {if(doc.docType == \"management\"){emit([doc.managementKey],doc); }}"
+    },
+    "selectByUserIdAndId": {
+      "map": "function(doc) {if(doc.docType == \"management\"){emit([doc.userId,doc._id],doc); }}"
+    },
+    "selectByUserId": {
+      "map": "function(doc) {if(doc.docType == \"management\"){emit([doc.userId],doc); }}"
+    },
+    "selectByUserIdLikeManagementName": {
+      "map": "function(doc) { if(doc.docType == \"management\"){ var words = {}; doc.managementName.replace(/\\w+/g, function(word) { words[word.toLowerCase()] = true}); for(w in words) { emit([w, doc.userId], doc); }}}"
+    },
+
+    "selectByCredential": {
+      "map": "function(doc) {if(doc.docType == \"management\"){emit([doc.managementKey,doc.managementSecret],doc); }}"
+    },
+
+    "countAllByUserId": {
+      "map": "function(doc) { if(doc.docType == \"management\"){ emit([doc.userId], null); }}",
+      "reduce": "_count"
+    },
+    "countAllByUserIdLikeManagementName": {
+      "map": "function(doc) { if(doc.docType == \"management\"){ var words = {}; doc.managementName.replace(/\\w+/g, function(word) { words[word.toLowerCase()] = true}); for(w in words) { emit([w, doc.userId], doc); }}}",
+      "reduce": "_count"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "_id": "_design/oauth_access_token",
+  "language": "javascript",
+  "views": {
+    "selectTokenById": {
+      "map": "function(doc) {if(doc.docType == \"oauth_access_token\"){emit([doc._id],doc); }}"
+    },
+    "selectTokenByToken": {
+      "map": "function(doc) {if(doc.docType == \"oauth_access_token\"){emit([doc.token],doc); }}"
+    },
+    "selectTokenByRefreshToken": {
+      "map": "function(doc) {if(doc.docType == \"oauth_access_token\"){emit([doc.refreshToken],doc); }}"
+    },
+    "selectTokenByManagementIdAndId": {
+      "map": "function(doc) {if(doc.docType == \"oauth_access_token\"){emit([doc.managementId,doc._id],doc); }}"
+    }
+  }
+}

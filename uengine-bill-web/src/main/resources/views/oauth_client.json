@@ -1,0 +1,38 @@
+{
+  "_id": "_design/oauth_client",
+  "language": "javascript",
+  "views": {
+    "selectById": {
+      "map": "function(doc) {if(doc.docType == \"oauth_client\"){emit([doc._id],doc); }}"
+    },
+
+    "selectByManagementId": {
+      "map": "function(doc) {if(doc.docType == \"oauth_client\"){emit([doc.managementId],doc); }}"
+    },
+    "selectByManagementIdLikeClientName": {
+      "map": "function(doc) { if(doc.docType == \"oauth_client\"){ var words = {}; doc.name.replace(/\\w+/g, function(word) { words[word.toLowerCase()] = true}); for(w in words) { emit([w, doc.managementId], doc); }}}"
+    },
+
+    "countByManagementId": {
+      "map": "function(doc) { if(doc.docType == \"oauth_client\"){ emit([doc.managementId], null); }}",
+      "reduce": "_count"
+    },
+    "countByManagementIdLikeClientName": {
+      "map": "function(doc) { if(doc.docType == \"oauth_client\"){ var words = {}; doc.name.replace(/\\w+/g, function(word) { words[word.toLowerCase()] = true}); for(w in words) { emit([w, doc.managementId], doc); }}}",
+      "reduce": "_count"
+    },
+
+    "selectByManagementIdAndName": {
+      "map": "function(doc) {if(doc.docType == \"oauth_client\"){emit([doc.managementId,doc.name],doc); }}"
+    },
+    "selectByManagementIdAndId": {
+      "map": "function(doc) {if(doc.docType == \"oauth_client\"){emit([doc.managementId,doc._id],doc); }}"
+    },
+    "selectByClientKey": {
+      "map": "function(doc) {if(doc.docType == \"oauth_client\"){emit([doc.clientKey],doc); }}"
+    },
+    "selectByClientKeyAndSecret": {
+      "map": "function(doc) {if(doc.docType == \"oauth_client\"){emit([doc.clientKey,doc.clientSecret],doc); }}"
+    }
+  }
+}

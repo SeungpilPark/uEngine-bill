@@ -1,0 +1,12 @@
+{
+  "_id": "_design/management_user",
+  "language": "javascript",
+  "views": {
+    "selectByUserId": {
+      "map": "function(doc) {if(doc.docType == \"management_user\"){emit([doc._id],doc); }}"
+    },
+    "selectByUserEmail": {
+      "map": "function(doc) {if(doc.docType == \"management_user\"){emit([doc.email],doc); }}"
+    }
+  }
+}

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:oauth="http://www.springframework.org/schema/security/oauth2"
+             xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+                                 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/security/oauth2 http://www.springframework.org/schema/security/spring-security-oauth2.xsd">
+
+
+    <!-- REST 기반 인증 처리를 위한 Authentication Entry Point -->
+    <http realm="uEngine Protected Area"
+          use-expressions="true"
+          auto-config="false"
+          create-session="never"
+            >
+
+        <!--<headers>-->
+        <!--<frame-options value="ALLOW-FROM"/>-->
+        <!--</headers>-->
+
+        <csrf request-matcher-ref="csrfSecurityRequestMatcher"/>
+        <!--<csrf disabled="true"/>-->
+
+        <form-login login-page="/auth/login"
+                    login-processing-url="/j_spring_security_check"
+                    default-target-url="/index"
+                    authentication-failure-url="/auth/fail"
+                    always-use-default-target="false"
+                    username-parameter="email"
+                    password-parameter="password"/>
+
+        <access-denied-handler error-page="/auth/login"/>
+
+        <logout logout-url="/auth/logout" invalidate-session="true" logout-success-url="/auth/login"/>
+
+        <intercept-url pattern="/my/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
+        <intercept-url pattern="/management/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
+        <intercept-url pattern="/console/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
+        <intercept-url pattern="/license/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
+        <intercept-url pattern="/shop/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
+        <intercept-url pattern="/shop/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
+        <custom-filter ref="sessionManagementFilter" before="SESSION_MANAGEMENT_FILTER"/>
+    </http>
+
+    <beans:bean id="csrfSecurityRequestMatcher"
+                class="org.uengine.garuda.web.security.CsrfSecurityRequestMatcher">
+
+    </beans:bean>
+
+    <beans:bean id="authenticationFilter"
+                class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+        <beans:property name="authenticationManager" ref="authenticationManager"/>
+        <beans:property name="postOnly" value="false"/>
+        <beans:property name="authenticationSuccessHandler">
+            <beans:bean
+                    class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+                <beans:property name="useReferer" value="false"/>
+            </beans:bean>
+        </beans:property>
+    </beans:bean>
+
+    <!-- Spring Security의 Authentication Manager -->
+    <!--<authentication-manager alias="authenticationManager">-->
+        <!--<authentication-provider>-->
+            <!--<jdbc-user-service data-source-ref="dataSource"-->
+                               <!--users-by-username-query="SELECT EMAIL as username, PASSWD as password, ENABLED as enabled FROM USER WHERE EMAIL = ?"-->
+                               <!--authorities-by-username-query="SELECT usr.EMAIL as username, auth.AUTHORITY as authority from USER usr, AUTHORITIES auth WHERE usr.EMAIL = ? AND usr.ID = auth.USER_ID"/>-->
+            <!--<password-encoder ref="passwordEncoder"/>-->
+        <!--</authentication-provider>-->
+    <!--</authentication-manager>-->
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider ref="customAuthenticationProvider"/>
+    </authentication-manager>
+
+    <beans:bean id="customAuthenticationProvider" class="org.uengine.garuda.web.security.CustomAuthenticationProvider"/>
+
+    <!-- Secure Role annotation을 활성화 -->
+    <global-method-security secured-annotations="enabled"/>
+
+    <!-- 패스워드 암호화를 위한 Encoder -->
+    <beans:bean id="passwordEncoder" class="org.uengine.garuda.web.security.AESPasswordEncoder">
+        <beans:property name="secretKey1" value="${security.password.encoder.secret1}"/>
+        <beans:property name="secretKey2" value="${security.password.encoder.secret2}"/>
+    </beans:bean>
+
+    <!-- AjaxInvalidStrategy -->
+    <beans:bean id="sessionManagementFilter" class="org.springframework.security.web.session.SessionManagementFilter">
+        <beans:constructor-arg name="securityContextRepository" ref="httpSessionSecurityContextRepository"/>
+        <beans:property name="invalidSessionStrategy" ref="jsfRedirectStrategy"/>
+    </beans:bean>
+
+    <beans:bean id="jsfRedirectStrategy" class="org.uengine.garuda.common.security.AjaxInvalidStrategy">
+        <beans:property name="invalidSessionUrl" value="/auth/login"/>
+    </beans:bean>
+
+    <beans:bean id="httpSessionSecurityContextRepository"
+                class="org.springframework.security.web.context.HttpSessionSecurityContextRepository"/>
+
+</beans:beans>
