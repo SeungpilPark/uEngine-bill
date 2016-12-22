@@ -28,7 +28,7 @@
 
         <%@include file="../template/header.jsp" %>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4 padding-1">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>All Products</h5>
@@ -142,7 +142,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8 padding-1">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>FORCS BASIC</h5>

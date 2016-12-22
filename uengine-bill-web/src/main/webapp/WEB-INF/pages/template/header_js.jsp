@@ -34,6 +34,10 @@
 <meta name="Distribution" content="Global"/>
 <meta name="author" content="Seungpil, Park">
 
+<!-- Summer Note -->
+<link href="/resources/css/plugins/summernote/summernote.css" rel="stylesheet">
+<link href="/resources/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+
 <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
 <link href="/resources/font-awesome/css/font-awesome.css" rel="stylesheet">
 
@@ -47,8 +51,12 @@
 <!-- Gritter -->
 <link href="/resources/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
 
+<!-- Data Picker -->
+<link href="/resources/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+
 <link href="/resources/css/animate.css" rel="stylesheet">
 <link href="/resources/css/style.css" rel="stylesheet">
+<link href="/resources/css/custom.css" rel="stylesheet">
 
 <link href="/resources/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
 

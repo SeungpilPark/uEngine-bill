@@ -22,7 +22,7 @@
 <body>
 <div id="wrapper">
     <%@include file="../template/nav.jsp" %>
-    <script type="text/javascript">$('[name=list-menu-index]').addClass('active');</script>
+    <script type="text/javascript">$('[name=list-menu-customer]').addClass('active');</script>
 
     <div id="page-wrapper" class="gray-bg dashbard-1">
 

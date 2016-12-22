@@ -86,6 +86,18 @@ public class IndexController {
 
         return new ModelAndView("/subscription/index");
     }
+    @RequestMapping(value = "subscription/new", method = RequestMethod.GET)
+    public ModelAndView subscriptionNew(HttpSession session, final Locale locale) {
+        session.setAttribute("lang", locale.toString());
+
+        return new ModelAndView("/subscription/new");
+    }
+    @RequestMapping(value = "subscription/detail", method = RequestMethod.GET)
+    public ModelAndView subscriptionDetail(HttpSession session, final Locale locale) {
+        session.setAttribute("lang", locale.toString());
+
+        return new ModelAndView("/subscription/detail");
+    }
     @RequestMapping(value = "invoice", method = RequestMethod.GET)
     public ModelAndView invoice(HttpSession session, final Locale locale) {
         session.setAttribute("lang", locale.toString());

@@ -53,6 +53,16 @@
 
 <!-- iCheck -->
 <script src="/resources/js/plugins/iCheck/icheck.min.js"></script>
+
+<!-- Print -->
+<script src="/resources/js/plugins/print/print.js"></script>
+
+<!-- SUMMERNOTE -->
+<script src="/resources/js/plugins/summernote/summernote.min.js"></script>
+
+<!-- Data picker -->
+<script src="/resources/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
 <script>
     $(document).ready(function () {
         $('.i-checks').iCheck({
@@ -61,5 +71,7 @@
         });
 
         $('.chosen-select').chosen({width: "100%"});
+
+        $('.summernote').summernote();
     });
 </script>

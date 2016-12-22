@@ -29,7 +29,7 @@
         <%@include file="../template/header.jsp" %>
 
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4 padding-1">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Customers</h5>
@@ -167,14 +167,26 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8 padding-1 detailPage" name="refundDetail">
+                <%@include file="../subpages/refundDetail.jsp" %>
+            </div>
+            <div class="col-md-8 padding-1 detailPage" name="creditDetail">
+                <%@include file="../subpages/creditDetail.jsp" %>
+            </div>
+            <div class="col-md-8 padding-1 detailPage" name="paymentDetail">
+                <%@include file="../subpages/paymentDetail.jsp" %>
+            </div>
+            <div class="col-md-8 padding-1 detailPage" name="invoiceDetail">
+                <%@include file="../subpages/invoiceDetail.jsp" %>
+            </div>
+            <div class="col-md-8 padding-1 detailPage" name="customerDetail">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <span><h5>darkgodarkgo</h5> <span class="label label-success">USD</span></span>
 
                         <div class="ibox-tools">
                             <button type="button" class="btn btn-default btn-sm">Edit</button>
-                            <button type="button" class="btn btn-success btn-sm">New Subscription</button>
+                            <a href="../subscription/new" type="button" class="btn btn-success btn-sm">New Subscription</a>
                             <button type="button" class="dropdown-toggle btn btn-default btn-sm" data-toggle="dropdown"
                                     href="#">MORE
                             </button>
@@ -203,8 +215,10 @@
                     <div class="ibox-content">
                         <div class="tabs-container">
                             <ul class="nav nav-tabs">
-                                <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">Overview</a></li>
-                                <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">Transactions</a></li>
+                                <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">Overview</a>
+                                </li>
+                                <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">Transactions</a>
+                                </li>
                             </ul>
                             <div class="tab-content">
                                 <div id="tab-1" class="tab-pane active">
@@ -214,158 +228,300 @@
                                                 <div class="feed-element">
                                                     <div class="media-body ">
                                                         <span><i class="fa fa-user"></i> darkgodarkgo</span><br>
-                                                        <a><i class="fa fa-envelope-o"></i> sppark@uengine.org</a><br><br>
+                                                        <a><i class="fa fa-envelope-o"></i>
+                                                            sppark@uengine.org</a><br><br>
 
-                                                        <p class="text-muted">Addon Code: account-usage</p>
+                                                        <h4>$-20.00</h4>
+                                                        <strong class="text-warning">OUTSTANDING</strong>
                                                         <br>
-                                                        <span>Associated Plans : <span class="text-navy">basic-monthly</span></span>
-                                                        <div class="actions">
-                                                            <button type="button" class="btn btn-default btn-xs">Edit</button>
-                                                            <button type="button" class="btn btn-default btn-xs">Mark as Inactive</button>
-                                                            <button type="button" class="btn btn-default btn-xs">Delete</button>
+                                                    </div>
+                                                </div>
+
+                                                <div class="feed-element">
+                                                    <div class="media-body ">
+                                                        <div class="col-md-1">
+                                                            <i style="font-size: 20px;" class="fa fa-map-marker"></i>
+                                                        </div>
+                                                        <div class="col-md-10">
+                                                            <strong>Billing Address</strong>
+                                                            <br>
+                                                            <span>inovally C dong</span><br>
+                                                            <span>sungnam</span><br>
+                                                            <span>AL 000-000</span><br>
+                                                            <span>South Korea</span>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="feed-element">
                                                     <div class="media-body ">
-                                                        <div class="col-md-9">
-                                                            <strong>account-usage</strong><br>
-                                                            <p class="text-muted">Addon Code: account-usage</p>
-                                                            <br>
-                                                            <span>Associated Plans : <span class="text-navy">basic-monthly</span></span>
-                                                            <div class="actions">
-                                                                <button type="button" class="btn btn-default btn-xs">Edit</button>
-                                                                <button type="button" class="btn btn-default btn-xs">Mark as Inactive</button>
-                                                                <button type="button" class="btn btn-default btn-xs">Delete</button>
-                                                            </div>
+                                                        <div class="col-md-1">
+                                                            <i style="font-size: 20px;" class="fa fa-map-marker"></i>
                                                         </div>
-                                                        <div class="col-md-3">
-                                                            <strong class="pull-right">Price varies by <a class="text-navy">tier</a></strong>
+                                                        <div class="col-md-10">
+                                                            <strong>Shipping Address</strong>
                                                             <br>
-                                                            <p class="pull-right">per month</p>
+                                                            <span>inovally C dong</span><br>
+                                                            <span>sungnam</span><br>
+                                                            <span>AL 000-000</span><br>
+                                                            <span>South Korea</span>
                                                         </div>
                                                     </div>
+                                                </div>
+
+                                                <div class="feed-element">
+                                                    <div class="media-body ">
+                                                        <div class="col-md-1">
+                                                            <i style="font-size: 20px;" class="fa fa-user"></i>
+                                                        </div>
+                                                        <div class="col-md-10">
+                                                            <strong>Contact Persons</strong>
+                                                            <br>
+                                                            <span>There are no additional contact persons found.</span><br>
+                                                            <a>+ Add Contact Person</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="feed-element">
+                                                    <div class="media-body ">
+                                                        <div class="col-md-1">
+                                                            <i style="font-size: 20px;" class="fa fa-credit-card"></i>
+                                                        </div>
+                                                        <div class="col-md-10">
+                                                            <strong>PayPal Account Details</strong>
+                                                            <br>
+                                                            <span>darkgodarkgo-buyer@gmail.com</span><br>
+                                                            <span class="text-muted">Gateway : Payments Pro</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="panel panel-info">
+                                                    <div class="panel-heading">
+                                                        <i class="fa fa-info-circle"></i> Info Panel
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <span>Client Portal allows your customers to keep track of all the transactions between them and your business.<a
+                                                                href="#">Learn More</a></span>
+                                                        <button type="button" class="btn btn-default btn-sm">Enable
+                                                            Portal
+                                                        </button>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-8">
+                                            <h3>Subscriptions</h3>
 
-                                        </div>
-                                        <div class="form-group"><label class="col-sm-2 control-label">Currency</label>
-                                            <div class="col-md-5">
-                                                <select class="chosen-select">
-                                                    <option value=""></option>
-                                                    <option value="">AUD - Australian Dollar</option>
-                                                    <option value="">CAD - Canadian Dollar</option>
-                                                    <option value="">USD - US Dollar</option>
-                                                </select>
+                                            <div class="feed-activity-list">
+                                                <div class="feed-element">
+                                                    <div class="media-body ">
+                                                        <div class="col-md-6">
+                                                            <a>basic-monthly</a><br>
+                                                            <span class="text-muted">FORCS BASIC</span><br><br>
+                                                            <span class="text-muted">Subscription ID : 188677000000108037</span><br>
+                                                            <span class="text-muted">Status : </span><span
+                                                                class="text-success">live</span><br>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <h4>$16.80</h4>
+                                                            <span class="text-muted">Last Billing Date : 20 Dec 2016</span>
+                                                            <span class="text-muted">Next Billing Date : 20 Jan 2017</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="feed-element">
+                                                    <div class="media-body ">
+                                                        <div class="col-md-6">
+                                                            <a>basic-monthly</a><br>
+                                                            <span class="text-muted">FORCS BASIC</span><br><br>
+                                                            <span class="text-muted">Subscription ID : 188677000000108037</span><br>
+                                                            <span class="text-muted">Status : </span><span
+                                                                class="text-success">live</span><br>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <h4>$16.80</h4>
+                                                            <span class="text-muted">Last Billing Date : 20 Dec 2016</span>
+                                                            <span class="text-muted">Next Billing Date : 20 Jan 2017</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="form-group"><label class="col-sm-2 control-label">Payment Terms</label>
-                                            <div class="col-sm-5">
-                                                <select class="chosen-select">
-                                                    <option value="">NET 15</option>
-                                                    <option value="">NET 30</option>
-                                                    <option value="">NET 45</option>
-                                                    <option value="">NET 60</option>
-                                                    <option value="">Due end of next month</option>
-                                                    <option value="">Due end of the month</option>
-                                                    <option value="">Due on Receipt</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                                            <br><br>
 
-                                        <div class="form-group"><label class="col-sm-2 control-label">Enable Portal</label>
-                                            <div class="col-md-10">
-                                                <div><label> <input type="checkbox" value=""> Allow portal access for this customer </label></div>
-                                            </div>
-                                        </div>
+                                            <div id="vertical-timeline"
+                                                 class="vertical-container light-timeline no-margins">
+                                                <div class="vertical-timeline-block">
+                                                    <div class="vertical-timeline-icon navy-bg">
+                                                        <i class="fa fa-bank"></i>
+                                                    </div>
 
-                                        <div class="form-group"><label class="col-sm-2 control-label">Bank Account</label>
-                                            <div class="col-sm-10">
-                                                <label> <input type="checkbox" value=""> Allow this customer to pay via his/her bank account. </label>
+                                                    <div class="vertical-timeline-content">
+                                                        <span>Automated payment reminder enabled</span><br>
+                                                        <span class="text-muted">by Seungpil Park</span><br>
+                                                        <span class="text-muted">20 Dec 2016 07:37 PM</span>
+                                                    </div>
+                                                </div>
+                                                <div class="vertical-timeline-block">
+                                                    <div class="vertical-timeline-icon navy-bg">
+                                                        <i class="fa fa-bank"></i>
+                                                    </div>
+
+                                                    <div class="vertical-timeline-content">
+                                                        <span>Subscription - FORCS BASIC-basic-monthly has been charged</span><br>
+                                                        <span class="text-muted">by Seungpil Park</span><br>
+                                                        <span class="text-muted">20 Dec 2016 07:37 PM</span>
+                                                    </div>
+                                                </div>
+                                                <div class="vertical-timeline-block">
+                                                    <div class="vertical-timeline-icon navy-bg">
+                                                        <i class="fa fa-bank"></i>
+                                                    </div>
+
+                                                    <div class="vertical-timeline-content">
+                                                        <span>Payment of amount $80.00 received and applied for INV-000038</span><br>
+                                                        <span class="text-muted">by Seungpil Park</span><br>
+                                                        <span class="text-muted">20 Dec 2016 07:37 PM</span>
+                                                    </div>
+                                                </div>
+                                                <div class="vertical-timeline-block">
+                                                    <div class="vertical-timeline-icon navy-bg">
+                                                        <i class="fa fa-bank"></i>
+                                                    </div>
+
+                                                    <div class="vertical-timeline-content">
+                                                        <span>Invoice INV-000038 created from Subscription - FORCS BASIC-basic-monthly</span><br>
+                                                        <span class="text-muted">by Seungpil Park</span><br>
+                                                        <span class="text-muted">20 Dec 2016 07:37 PM</span>
+                                                    </div>
+                                                </div>
+                                                <div class="vertical-timeline-block">
+                                                    <div class="vertical-timeline-icon navy-bg">
+                                                        <i class="fa fa-bank"></i>
+                                                    </div>
+
+                                                    <div class="vertical-timeline-content">
+                                                        <span>Payment of amount $16.80 received and applied for INV-000037</span><br>
+                                                        <span class="text-muted">by Seungpil Park</span><br>
+                                                        <span class="text-muted">20 Dec 2016 07:37 PM</span>
+                                                    </div>
+                                                </div>
+                                                <div class="vertical-timeline-block">
+                                                    <div class="vertical-timeline-icon navy-bg">
+                                                        <i class="fa fa-bank"></i>
+                                                    </div>
+
+                                                    <div class="vertical-timeline-content">
+                                                        <span>Subscription has been created for the Plan - FORCS BASIC-basic-monthly</span><br>
+                                                        <span class="text-muted">by Seungpil Park</span><br>
+                                                        <span class="text-muted">20 Dec 2016 07:37 PM</span>
+                                                    </div>
+                                                </div>
+                                                <div class="vertical-timeline-block">
+                                                    <div class="vertical-timeline-icon navy-bg">
+                                                        <i class="fa fa-bank"></i>
+                                                    </div>
+
+                                                    <div class="vertical-timeline-content">
+                                                        <span>Invoice INV-000037 created from Subscription - FORCS BASIC-basic-monthly</span><br>
+                                                        <span class="text-muted">by Seungpil Park</span><br>
+                                                        <span class="text-muted">20 Dec 2016 07:37 PM</span>
+                                                    </div>
+                                                </div>
+                                                <div class="vertical-timeline-block">
+                                                    <div class="vertical-timeline-icon navy-bg">
+                                                        <i class="fa fa-bank"></i>
+                                                    </div>
+
+                                                    <div class="vertical-timeline-content">
+                                                        <span>Customer created</span><br>
+                                                        <span class="text-muted">by Seungpil Park</span><br>
+                                                        <span class="text-muted">20 Dec 2016 07:37 PM</span>
+                                                    </div>
+                                                </div>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
                                 <div id="tab-2" class="tab-pane">
                                     <div class="panel-body">
-                                        <div class="row">
-                                            <div class="col-sm-6 b-r">
-                                                <h3 class="m-t-none m-b">BILLING ADDRESS</h3>
-                                                <div class="form-group"><label class="col-sm-4 control-label">Street</label>
-
-                                                    <div class="col-sm-8"><textarea rows="3" class="form-control" name=""></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group"><label class="col-sm-4 control-label">City</label>
-
-                                                    <div class="col-sm-8"><input type="text" class="form-control" name="">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group"><label class="col-sm-4 control-label">State</label>
-
-                                                    <div class="col-sm-8"><input type="text" class="form-control" name="">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group"><label class="col-sm-4 control-label">ZIP Code</label>
-
-                                                    <div class="col-sm-8"><input type="text" class="form-control" name="">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group"><label class="col-sm-4 control-label">Country</label>
-
-                                                    <div class="col-sm-5">
-                                                        <select class="chosen-select">
-                                                            <option value="">South Korea</option>
-                                                            <option value="">Japan</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group"><label class="col-sm-4 control-label">Fax</label>
-
-                                                    <div class="col-sm-8"><input type="text" class="form-control" name="">
-                                                    </div>
+                                        <div class="ibox float-e-margins">
+                                            <div class="ibox-title">
+                                                <div class="ibox-tools">
+                                                    <a class="dropdown-toggle btn btn-default btn-sm"
+                                                       style="color: black" data-toggle="dropdown" href="#">Filter By:
+                                                        All Transactions</a>
+                                                    <ul class="dropdown-menu dropdown-user">
+                                                        <li><a href="#">All Transactions</a>
+                                                        </li>
+                                                        <li><a href="#">Invoices</a>
+                                                        </li>
+                                                        <li><a href="#">Payment</a>
+                                                        </li>
+                                                        <li><a href="#">Credit</a>
+                                                        </li>
+                                                        <li><a href="#">Refund</a>
+                                                        </li>
+                                                    </ul>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
-                                                <h3 class="m-t-none m-b">SHIPPING ADDRESS
-                                                    <a style="font-size: 12px" class="pull-right"><i class="fa fa-download"> Copy Billing Address</i></a></h3>
-                                                <div class="form-group"><label class="col-sm-4 control-label">Street</label>
+                                            <div class="ibox-content">
 
-                                                    <div class="col-sm-8"><textarea rows="3" class="form-control" name=""></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group"><label class="col-sm-4 control-label">City</label>
-
-                                                    <div class="col-sm-8"><input type="text" class="form-control" name="">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group"><label class="col-sm-4 control-label">State</label>
-
-                                                    <div class="col-sm-8"><input type="text" class="form-control" name="">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group"><label class="col-sm-4 control-label">ZIP Code</label>
-
-                                                    <div class="col-sm-8"><input type="text" class="form-control" name="">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group"><label class="col-sm-4 control-label">Country</label>
-
-                                                    <div class="col-sm-5">
-                                                        <select class="chosen-select">
-                                                            <option value="">South Korea</option>
-                                                            <option value="">Japan</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group"><label class="col-sm-4 control-label">Fax</label>
-
-                                                    <div class="col-sm-8"><input type="text" class="form-control" name="">
-                                                    </div>
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover dataTables-example">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>DATE</th>
+                                                            <th>TYPE</th>
+                                                            <th>REF-ID</th>
+                                                            <th>AMOUNT</th>
+                                                            <th>STATUS</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr name="transactionItem" data-type="refund">
+                                                            <td>20 Dec 2016</td>
+                                                            <td>Refund</td>
+                                                            <td>CN-00007</td>
+                                                            <td>$29.40</td>
+                                                            <td class="text-info">Success</td>
+                                                        </tr>
+                                                        <tr name="transactionItem" data-type="credit">
+                                                            <td>20 Dec 2016</td>
+                                                            <td>Credit</td>
+                                                            <td>CN-00007</td>
+                                                            <td>$29.40</td>
+                                                            <td class="text-info">Closed</td>
+                                                        </tr>
+                                                        <tr name="transactionItem" data-type="payment">
+                                                            <td>20 Dec 2016</td>
+                                                            <td>Payment</td>
+                                                            <td>INV-000043</td>
+                                                            <td>$203.40</td>
+                                                            <td class="text-info">Success</td>
+                                                        </tr>
+                                                        <tr name="transactionItem" data-type="invoice">
+                                                            <td>20 Dec 2016</td>
+                                                            <td>Invoice</td>
+                                                            <td>INV-000043</td>
+                                                            <td>$203.40</td>
+                                                            <td class="text-info">Paid</td>
+                                                        </tr>
+                                                        </tbody>
+                                                        <tfoot>
+                                                        <tr>
+                                                            <th>DATE</th>
+                                                            <th>TYPE</th>
+                                                            <th>REF-ID</th>
+                                                            <th>AMOUNT</th>
+                                                            <th>STATUS</th>
+                                                        </tr>
+                                                        </tfoot>
+                                                    </table>
                                                 </div>
                                             </div>
                                         </div>
@@ -384,22 +540,59 @@
 </div>
 <%@include file="../template/footer_js.jsp" %>
 
+<%@include file="../subpages/credit-email.jsp" %>
+<%@include file="../subpages/invoice-email.jsp" %>
 
 <script>
     $(document).ready(function () {
+        var detailPages = $('.detailPage');
+        var refundDetail = $('[name=refundDetail]');
+        var creditDetail = $('[name=creditDetail]');
+        var paymentDetail = $('[name=paymentDetail]');
+        var invoiceDetail = $('[name=invoiceDetail]');
+        var customerDetail = $('[name=customerDetail]');
+        var goBack = $('[name=goBack]');
+        detailPages.hide();
+        customerDetail.show();
+
         $('.dataTables-example').DataTable({
             pageLength: 25,
             responsive: true,
             dom: '<"html5buttons"B>lTfgitp',
             buttons: []
         });
-    });
 
-    $('[name=detail-check]').click(function (event) {
-        event.stopPropagation();
-    });
-    $('[name=detail-click]').click(function (event) {
-        event.stopPropagation();
+        $('[name=detail-check]').click(function (event) {
+            event.stopPropagation();
+        });
+        $('[name=detail-click]').click(function (event) {
+            event.stopPropagation();
+        });
+
+        $('[name=transactionItem]').click(function () {
+            var item = $(this);
+            var type = item.data('type');
+            detailPages.hide();
+            $('[name=' + type + 'Detail]').show();
+        });
+
+        goBack.click(function () {
+            detailPages.hide();
+            customerDetail.show();
+        });
+
+        $('[name=print-btn]').click(function () {
+            var target = $(this).data('target-id');
+            $('#' + target).print();
+            //url:https://github.com/DoersGuild/jQuery.print
+        });
+
+        $('[name=email-btn]').click(function () {
+            var target = $(this).data('target-id');
+            $('#' + target).modal({
+                show: true
+            });
+        });
     });
 
 </script>
