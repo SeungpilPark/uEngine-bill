@@ -1,13 +1,9 @@
 package org.uengine.garuda.web;
 
-import org.uengine.garuda.web.contactus.ContactUs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -53,6 +49,12 @@ public class IndexController {
     public ModelAndView index(HttpSession session, final Locale locale) {
         session.setAttribute("lang", locale.toString());
 
+        return new ModelAndView("index");
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ModelAndView home(HttpSession session, final Locale locale) {
+        session.setAttribute("lang", locale.toString());
         return new ModelAndView("index");
     }
 

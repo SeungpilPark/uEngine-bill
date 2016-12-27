@@ -7,12 +7,13 @@
                                  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/security/oauth2 http://www.springframework.org/schema/security/spring-security-oauth2.xsd">
 
 
+    <http pattern="/rest/**" security="none"/>
+
     <!-- REST 기반 인증 처리를 위한 Authentication Entry Point -->
     <http realm="uEngine Protected Area"
           use-expressions="true"
           auto-config="false"
-          create-session="never"
-            >
+          create-session="never">
 
         <!--<headers>-->
         <!--<frame-options value="ALLOW-FROM"/>-->
@@ -33,18 +34,17 @@
 
         <logout logout-url="/auth/logout" invalidate-session="true" logout-success-url="/auth/login"/>
 
-        <intercept-url pattern="/my/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
-        <intercept-url pattern="/management/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
-        <intercept-url pattern="/console/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
-        <intercept-url pattern="/license/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
-        <intercept-url pattern="/shop/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
-        <intercept-url pattern="/shop/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
+        <intercept-url pattern="/index" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
+        <intercept-url pattern="/" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
+        <intercept-url pattern="/product/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
+        <intercept-url pattern="/customer/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
+        <intercept-url pattern="/setting/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
+        <intercept-url pattern="/subscription/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
         <custom-filter ref="sessionManagementFilter" before="SESSION_MANAGEMENT_FILTER"/>
     </http>
 
     <beans:bean id="csrfSecurityRequestMatcher"
                 class="org.uengine.garuda.web.security.CsrfSecurityRequestMatcher">
-
     </beans:bean>
 
     <beans:bean id="authenticationFilter"
@@ -59,15 +59,6 @@
         </beans:property>
     </beans:bean>
 
-    <!-- Spring Security의 Authentication Manager -->
-    <!--<authentication-manager alias="authenticationManager">-->
-        <!--<authentication-provider>-->
-            <!--<jdbc-user-service data-source-ref="dataSource"-->
-                               <!--users-by-username-query="SELECT EMAIL as username, PASSWD as password, ENABLED as enabled FROM USER WHERE EMAIL = ?"-->
-                               <!--authorities-by-username-query="SELECT usr.EMAIL as username, auth.AUTHORITY as authority from USER usr, AUTHORITIES auth WHERE usr.EMAIL = ? AND usr.ID = auth.USER_ID"/>-->
-            <!--<password-encoder ref="passwordEncoder"/>-->
-        <!--</authentication-provider>-->
-    <!--</authentication-manager>-->
     <authentication-manager alias="authenticationManager">
         <authentication-provider ref="customAuthenticationProvider"/>
     </authentication-manager>
