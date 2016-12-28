@@ -17,7 +17,9 @@
  */
 package org.uengine.garuda.web.system;
 
-import org.uengine.garuda.model.User;
+import org.opencloudengine.garuda.client.model.OauthUser;
+
+import java.util.Map;
 
 /**
  * @author Seungpil PARK
@@ -25,12 +27,16 @@ import org.uengine.garuda.model.User;
  */
 public interface UserService {
 
+    Map accessToken(String userName, String password, String scope);
+
+    Map tokenInfo(String accessToken);
+
     /**
      * 이메일 확인 후 사용자의 가입 신청을 처리한다.
      *
-     * @param email 사용자메일
+     * @param userName 사용자 이름
      */
-    void acknowledge(String email);
+    OauthUser acknowledge(String userName);
 
     /**
      * 이메일 확인 전 사용자의 가입 신청을 처리한다.
@@ -38,44 +44,43 @@ public interface UserService {
      * @param user User Map
      * @return User
      */
-    User createUser(User user);
+    OauthUser createUser(OauthUser user);
 
+    OauthUser createEnableUser(OauthUser user);
 
-    User updatePassword(String email, String password);
+    OauthUser updatePassword(String userName, String password);
 
-    void deleteUser(String email);
+    void deleteUser(String userName);
 
-    User updateUserInfo(User user);
+    OauthUser updateUser(OauthUser user);
 
-    User selectByUserId(String id);
+    OauthUser selectByUserId(String id);
 
-    User selectByUserEmail(String email);
+    OauthUser selectByUserName(String userName);
 
 
     /**
      * 사용자가 이메일 확인 대기중일 경우 true
      *
-     * @param email 사용자메일
+     * @param userName 사용자 이름
      * @return true or false
      */
-    boolean waitingConfirmation(String email);
+    boolean waitingConfirmation(String userName);
 
     /**
      * 사용자가 이메일 확인 완료일 경우 true
      *
-     * @param email 사용자메일
+     * @param userName 사용자 이름
      * @return true or false
      */
-    boolean completeAccount(String email);
+    boolean completeAccount(String userName);
 
     /**
      * 사용자가에게 패스워드 변경 이메일을 보낸다.
      *
-     * @param email 사용자메일
+     * @param userName 사용자 이름
      */
-    void sendPasswdMail(String email);
+    void sendPasswdMail(String userName);
 
-    boolean reqPasswdExist(String user_id, String token);
-
-
+    boolean reqPasswdExist(String id, String token);
 }

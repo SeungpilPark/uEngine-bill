@@ -17,6 +17,7 @@
 package org.uengine.garuda.web.registe;
 
 import org.apache.commons.codec.binary.Base64;
+import org.opencloudengine.garuda.client.model.OauthUser;
 import org.uengine.garuda.common.rest.Response;
 import org.uengine.garuda.model.User;
 import org.uengine.garuda.util.DateUtils;
@@ -83,37 +84,41 @@ public class RegisteController extends DefaultController {
     @RequestMapping(value = "/request", method = RequestMethod.POST)
     public ModelAndView registerRequest(
             HttpServletRequest request,
-            @RequestParam String email,
+            @RequestParam String userName,
             @RequestParam String password,
+            @RequestParam String email,
             @RequestParam String confirmPassword) {
 
         String unescapedPassword = EscapeUtils.unescape(password);
+        OauthUser existUser = userService.selectByUserName(userName);
 
         //계정은 있으나 메일확인을 받지 못한 경우
-        if (userService.waitingConfirmation(email)) {
+        if (userService.waitingConfirmation(userName)) {
             ModelAndView mav = new ModelAndView();
             mav.setViewName("/registe/reaffirm");
-            mav.addObject("responseEmail", email);
+            mav.addObject("responseUserName", userName);
+            mav.addObject("responseEmail", (String) existUser.get("email"));
             return mav;
         }
 
         //계정이 이미 있고 메일확인까지 받은 경우
-        if (userService.completeAccount(email)) {
+        if (userService.completeAccount(userName)) {
             ModelAndView mav = new ModelAndView();
             mav.setViewName("/registe/exist");
-            mav.addObject("responseEmail", email);
+            mav.addObject("responseUserName", userName);
+            mav.addObject("responseEmail", (String) existUser.get("email"));
             return mav;
         }
 
         //신규 계정일 경우 유저를 만들고 이메일 전송 후 화면 이동시킨다.
         String ipAddr = NetworkUtils.getIpAddr(request);
-        User user = new User();
-        user.setEmail(email);
-        user.setPassword(passwordEncoder.encode(unescapedPassword));
-        user.setCountry(NetworkUtils.getCountryCode(ipAddr));
+        OauthUser user = new OauthUser();
+        user.setUserName(userName);
+        user.setUserPassword(unescapedPassword);
+        user.put("email", email);
 
         userService.createUser(user);
-        registeService.sendRegisteMail(email);
+        registeService.sendRegisteMail(userName);
 
         ModelAndView mav = new ModelAndView();
         mav.addObject("responseEmail", email);
@@ -127,8 +132,8 @@ public class RegisteController extends DefaultController {
     public Response remail(@RequestBody Map params) {
         Response response = new Response();
         try {
-            String email = params.get("email").toString();
-            registeService.sendRegisteMail(email);
+            String userName = params.get("userName").toString();
+            registeService.sendRegisteMail(userName);
             response.setSuccess(true);
         } catch (Exception ex) {
             response.setSuccess(false);

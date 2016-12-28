@@ -1,9 +1,3 @@
-<%@ page import="org.uengine.garuda.util.ApplicationContextRegistry" %>
-<%@ page import="org.uengine.garuda.util.NetworkUtils" %>
-<%@ page import="org.uengine.garuda.model.User" %>
-<%@ page import="org.springframework.context.ApplicationContext" %>
-<%@ page import="org.springframework.context.i18n.LocaleContextHolder" %>
-<%@ page import="java.util.Locale" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java" trimDirectiveWhitespaces="true" %>
 
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -70,63 +64,42 @@
 <!-- Jquery -->
 <script src="/resources/js/jquery-2.1.1.js"></script>
 
-<!-- _csrf -->
-<meta name="_csrf" content="${_csrf.token}"/>
-<!-- default header name is X-CSRF-TOKEN -->
-<meta name="_csrf_header" content="${_csrf.headerName}"/>
-<!-- AJAX_csrf 오버라이드 && 더블 submit 방지-->
+<!-- ajax 호출 UI 블락커 && 커스터마이징 -->
+<script type="text/javascript" src="/resources/js/plugins/blockUI/blockUI.js"></script>
+<script type="text/javascript" src="/resources/js/blockUIcustom.js"></script>
+
+<!-- config && message -->
+<script type="text/javascript" src="/config/js.json"></script>
 <script type="text/javascript">
-    var token = $("meta[name='_csrf']").attr("content");
-    var header = $("meta[name='_csrf_header']").attr("content");
-    $(document).ajaxSend(function (e, xhr, options) {
-        xhr.setRequestHeader(header, token);
-    });
+    var lang = config['default.locale'];
+</script>
+<script type="text/javascript" src="/resources/js/bundle.js"></script>
+
+<!-- 더블 서브밋 방지 -->
+<script type="text/javascript">
     $(function () {
         $('form').each(function () {
             var form = $(this);
-            form.append('<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>');
             if (form.find('[type=submit]').length > 0) {
                 form.submit(function () {
                     blockSubmitStart();
                 });
             }
         });
-    })
+    });
 </script>
-
-<!-- config && message -->
-<script type="text/javascript" src="/config/js.json"></script>
-<script type="text/javascript">var lang = "${lang}";
-lang = (lang.length > 0) ? lang : config['default.locale'];</script>
-<script type="text/javascript" src="/resources/js/bundle.js"></script>
-
-<!-- session -->
-<%
-    User user = (User) session.getAttribute("user");
-    //String ipAddress = NetworkUtils.getIpAddr(request);
-
-    //해당 세션의 첫 접속인경우, ISOCode 와 언어가 일치하지 않을 경우 맞는언어페이지로 리다이렉트.
-//    if (session.getAttribute("ISOCode") == null) {
-//        String ISOCode = NetworkUtils.getCountryCode(ipAddress);
-//        session.setAttribute("ISOCode", ISOCode);
-//        String localeByIpaddr = NetworkUtils.getLocaleFromISOCode(ISOCode);
-//        Locale locale = LocaleContextHolder.getLocale();
-//        if (!localeByIpaddr.equals(locale.toString()))
-//            response.sendRedirect("/index?lang=" + localeByIpaddr);
-//    }
-
-%>
+<!-- billing Api -->
+<script type="text/javascript" src="/resources/js/billing-api.js"></script>
 <script type="text/javascript">
-    function isEmpty(str) {
-        if (typeof str == 'string' && str.length > 0)return false;
-        return true;
-    }
-    var SESSION = {};
-    SESSION.ISOCode = !isEmpty('${ISOCode}') ? '${ISOCode}' : undefined;
-    SESSION.ID = !isEmpty('${user._id}') ? '${user._id}' : undefined;
-    SESSION.NAME = !isEmpty('${user.name}') ? '${user.name}' : undefined;
-    SESSION.EMAIL = !isEmpty('${user.email}') ? '${user.email}' : undefined;
-    SESSION.DESCRIPTION = !isEmpty('${user.description}') ? '${user.description}' : undefined;
-    SESSION.LEVEL = !isEmpty('${user.level}') ? '${user.level}' : undefined;
+    var uBilling = new uBilling('localhost', 8080);
 
+    //로그인,회원가입 관련 페이지가 아닌 경우 토큰 밸리데이팅을 수행한다.
+    var pathname = window.location.pathname;
+    if (pathname.indexOf('/auth') != 0 && pathname.indexOf('/registe') != 0) {
+        uBilling.validateToken()
+                .fail(function () {
+                    uBilling.logout();
+                    window.location.href = '/auth/login';
+                });
+    }
 </script>

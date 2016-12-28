@@ -122,7 +122,7 @@
 
 
             <li>
-                <a href="login.html">
+                <a href="#" id="logoutbtn">
                     <i class="fa fa-sign-out"></i> Log out
                 </a>
             </li>
@@ -156,8 +156,9 @@
         });
     };
     $(function () {
-        $('#logoutbtn').click(function(){
-           $('#logoutform').submit();
+        $('#logoutbtn').click(function () {
+            uBilling.logout();
+            window.location.href = '/auth/login';
         });
         $('#messageBox').find('[name=close]').click(function () {
             $('#messageBox').find('.close').click();

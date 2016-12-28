@@ -2,10 +2,6 @@
 
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<!-- ajax 호출 UI 블락커 && 커스터마이징 -->
-<script type="text/javascript" src="/resources/js/plugins/blockUI/blockUI.js"></script>
-<script type="text/javascript" src="/resources/js/blockUIcustom.js"></script>
-
 <!-- Mainly scripts -->
 <script src="/resources/js/bootstrap.min.js"></script>
 <script src="/resources/js/plugins/metisMenu/jquery.metisMenu.js"></script>
@@ -62,6 +58,9 @@
 
 <!-- Data picker -->
 <script src="/resources/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+<!--Validate-->
+<script type="text/javascript" src="/resources/js/plugins/validate/jquery.validate.min.js"></script>
 
 <script>
     $(document).ready(function () {

@@ -16,6 +16,11 @@
  */
 package org.uengine.garuda.web.system;
 
+import org.opencloudengine.garuda.client.AccessTokenRequest;
+import org.opencloudengine.garuda.client.IamClient;
+import org.opencloudengine.garuda.client.ResourceOwnerPasswordCredentials;
+import org.opencloudengine.garuda.client.model.OauthUser;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.uengine.garuda.common.exception.ServiceException;
 import org.uengine.garuda.mail.MailService;
 import org.uengine.garuda.model.User;
@@ -27,6 +32,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.codec.Base64;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -43,7 +49,7 @@ public class UserServiceImpl implements UserService {
     private RegisteRepository registeRepository;
 
     @Autowired
-    UserRepository userRepository;
+    IamServiceFactory serviceFactory;
 
     @Autowired
     ConfigurationHelper configurationHelper;
@@ -52,69 +58,151 @@ public class UserServiceImpl implements UserService {
     private MailService mailService;
 
     @Override
-    public void acknowledge(String email) {
-        userRepository.updateByAck(email);
-    }
-
-    @Override
-    public User createUser(User user) {
-        String email = user.getEmail();
-
-        if (userRepository.selectByUserEmail(email) != null) {
-            throw new ServiceException("이미 존재하는 사용자입니다.");
+    public Map accessToken(String userName, String password, String scope) {
+        IamClient iamClient = serviceFactory.trustClient();
+        ResourceOwnerPasswordCredentials passwordCredentials = new ResourceOwnerPasswordCredentials();
+        passwordCredentials.setUsername(userName);
+        passwordCredentials.setPassword(password);
+        passwordCredentials.setScope(scope);
+        try{
+            return iamClient.accessToken(passwordCredentials);
+        }catch (Exception ex){
+            ex.printStackTrace();
+            return null;
         }
-        user.setAuthority("ROLE_USER");
-        return userRepository.insertByUser(user);
     }
 
     @Override
-    public User updatePassword(String email, String password) {
-        return userRepository.updatePassword(email, password);
+    public Map tokenInfo(String accessToken) {
+        IamClient iamClient = serviceFactory.trustClient();
+        try{
+            return iamClient.tokenInfo(accessToken);
+        }catch (Exception ex){
+            ex.printStackTrace();
+            return null;
+        }
     }
 
     @Override
-    public void deleteUser(String email) {
-        userRepository.deleteByEmail(email);
+    public OauthUser acknowledge(String userName) {
+        IamClient iamClient = serviceFactory.trustClient();
+        OauthUser user = this.selectByUserName(userName);
+        try {
+            user.put("enable", true);
+            return iamClient.updateUser(user);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
     @Override
-    public User updateUserInfo(User user) {
-        return userRepository.updateUserInfo(user);
+    public OauthUser createUser(OauthUser oauthUser) {
+        IamClient iamClient = serviceFactory.trustClient();
+        try {
+            oauthUser.setLevel(0);
+            oauthUser.put("enable", false);
+            return iamClient.createUser(oauthUser);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
     @Override
-    public User selectByUserId(String id) {
-        return userRepository.selectByUserId(id);
+    public OauthUser createEnableUser(OauthUser oauthUser) {
+        IamClient iamClient = serviceFactory.trustClient();
+        try {
+            oauthUser.setLevel(0);
+            oauthUser.put("enable", true);
+            return iamClient.createUser(oauthUser);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
     @Override
-    public User selectByUserEmail(String email) {
-        return userRepository.selectByUserEmail(email);
+    public OauthUser updatePassword(String userName, String password) {
+        IamClient iamClient = serviceFactory.trustClient();
+        OauthUser user = this.selectByUserName(userName);
+        try {
+            user.setUserPassword(password);
+            return iamClient.updateUser(user);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
     @Override
-    public boolean waitingConfirmation(String email) {
-        User user = userRepository.selectByUserEmail(email);
+    public void deleteUser(String userName) {
+        IamClient iamClient = serviceFactory.trustClient();
+        OauthUser user = this.selectByUserName(userName);
+        try {
+            iamClient.deleteUser(user.get_id());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public OauthUser updateUser(OauthUser user) {
+        IamClient iamClient = serviceFactory.trustClient();
+        try {
+            return iamClient.updateUser(user);
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    @Override
+    public OauthUser selectByUserId(String id) {
+        IamClient iamClient = serviceFactory.trustClient();
+        try {
+            return iamClient.getUser(id);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public OauthUser selectByUserName(String userName) {
+        IamClient iamClient = serviceFactory.trustClient();
+        try {
+            return iamClient.getUserByName(userName);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public boolean waitingConfirmation(String userName) {
+        OauthUser user = this.selectByUserName(userName);
         if (user != null) {
-            if (!user.getEnabled())
+            if (!user.containsKey("enable") || !(boolean) user.get("enable")) {
                 return true;
+            }
         }
         return false;
     }
 
     @Override
-    public boolean completeAccount(String email) {
-        User user = userRepository.selectByUserEmail(email);
+    public boolean completeAccount(String userName) {
+        OauthUser user = this.selectByUserName(userName);
         if (user != null) {
-            if (user.getEnabled())
+            if (user.containsKey("enable") && (boolean) user.get("enable")) {
                 return true;
+            }
         }
         return false;
     }
 
     @Override
-    public void sendPasswdMail(String email) {
-        User user = userRepository.selectByUserEmail(email);
+    public void sendPasswdMail(String userName) {
+        OauthUser user = this.selectByUserName(userName);
         Registe registe = new Registe();
         registe.setUserId(user.get_id());
 
@@ -123,17 +211,18 @@ public class UserServiceImpl implements UserService {
         registe.setToken(token);
 
         registeRepository.insert(registe);
-        mailService.passwd(registe.get_id(), token, "Forgot Password", fromUser, "uEngine", email, null);
+        mailService.passwd(registe.get_id(), token, "Forgot Password", fromUser, "uEngine", (String) user.get("email"), null);
     }
 
     @Override
-    public boolean reqPasswdExist(String user_id, String token) {
+    public boolean reqPasswdExist(String id, String token) {
         Registe registe = new Registe();
-        registe.setUserId(user_id);
+        registe.setUserId(id);
         registe.setToken(token);
         Registe managedRegiste = registeRepository.selectByUserIdAndToken(registe);
-        if (managedRegiste == null)
+        if (managedRegiste == null) {
             return false;
+        }
         return true;
 
     }

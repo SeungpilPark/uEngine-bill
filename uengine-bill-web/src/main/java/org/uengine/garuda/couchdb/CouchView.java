@@ -18,18 +18,18 @@ package org.uengine.garuda.couchdb;
 
 import com.cloudant.client.api.Database;
 import com.cloudant.client.api.views.AllDocsResponse;
+import org.opencloudengine.garuda.client.model.OauthUser;
 import org.uengine.garuda.common.exception.ServiceException;
-import org.uengine.garuda.model.User;
 import org.uengine.garuda.util.JsonUtils;
 import org.uengine.garuda.util.ResourceUtils;
 import org.uengine.garuda.web.security.AESPasswordEncoder;
-import org.uengine.garuda.web.system.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.uengine.garuda.web.system.UserService;
 
 import java.io.File;
 import java.net.URL;
@@ -59,7 +59,7 @@ public class CouchView implements InitializingBean {
     private CouchServiceFactory serviceFactory;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
     @Qualifier("passwordEncoder")
@@ -103,21 +103,13 @@ public class CouchView implements InitializingBean {
 
 
         //기본 유저 등록
-        if(userRepository.selectByUserEmail("support@iam.co.kr") == null){
-            User user = new User();
-            user.setEmail("support@iam.co.kr");
-            user.setPassword(passwordEncoder.encode("admin"));
-            user.setName("시스템 관리자");
-            user.setAuthority("ROLE_ADMIN");
+        if(userService.selectByUserName(config.getProperty("system.admin.username")) == null){
+            OauthUser user = new OauthUser();
+            user.setUserName(config.getProperty("system.admin.username"));
+            user.setUserPassword(config.getProperty("system.admin.password"));
+            user.put("email", config.getProperty("system.admin.email"));
 
-            long time = new Date().getTime();
-            user.setRegDate(time);
-            user.setUpdDate(time);
-            user.setEnabled(true);
-            user.setLevel("1");
-            user.setCountry("KR");
-
-            userRepository.insertByManager(user);
+            userService.createEnableUser(user);
         }
     }
 }

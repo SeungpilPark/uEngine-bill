@@ -2,81 +2,53 @@
 
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="uengine" uri="http://www.uengine.io/tags" %>
-
 <!DOCTYPE html>
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
 <!--[if !IE]><!-->
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org"
       lang="en">
 <!--<![endif]-->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>OCE IAM | HOME</title>
+    <title>uEngine Billing | HOME</title>
 
     <%@include file="../template/header_js.jsp" %>
-
-    <link rel="stylesheet" href="/resources/assets/css/pages/page_log_reg_v1.css">
 </head>
 
-<!-- body classes:
-        "boxed": boxed layout mode e.g. <body class="boxed">
-        "pattern-1 ... pattern-9": background patterns for boxed layout mode e.g. <body class="boxed pattern-1">
--->
+<body class="gray-bg">
 
-<div class="wrapper">
-    <%@include file="../template/header.jsp" %>
+<div class="middle-box text-center loginscreen animated fadeInDown">
+    <div>
+        <div>
 
-    <!--=== Breadcrumbs ===-->
-    <div class="breadcrumbs">
-        <div class="container">
-            <h1 class="pull-left"><uengine:message code="menu.register"/></h1>
-            <ul class="pull-right breadcrumb">
-                <li><a href="index.html"><uengine:message code="menu.home"/></a></li>
-                <li class="active"><uengine:message code="menu.register"/></li>
-            </ul>
+            <h1 class="logo-name">uEngine</h1>
+
         </div>
+        <h3>Account already exists.</h3>
+        <p>Already Signed Up? Click <a href="/auth/login">Sign In</a> to login your account.</p>
+
+        <br>
+        <p id="mailExist"></p>
+
+        <p>는 이미 가입된 계정이지만 활성화되지 않았습니다. 발송된 메일의 링크를 누르시면 서비스를 이용하실 수 있습니다.</p>
+
+        <form id="register_form" class="m-t" role="form">
+            <button type="submit" id="refresh_timer" class="btn btn-primary block full-width m-b">재발송</button>
+        </form>
+        <p class="m-t"> <small>uEngine subscription billing app &copy; 2016</small> </p>
     </div>
-    <!--/breadcrumbs-->
-
-    <!--=== Content Part ===-->
-    <div class="container content">
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-                <form class="reg-page" id="register_form">
-                    <div class="reg-header">
-                        <h2><uengine:message code="registe.exist.title"/> </h2>
-
-                        <p><uengine:message code="login.sendpasswd.success2"/> <a href="/auth/login"
-                                                                                   class="color-green">
-                            <uengine:message code="login.sendpasswd.success3"/> </a> <uengine:message
-                                code="login.sendpasswd.success4"/></p>
-                        <br>
-
-                        <p>
-
-                        <div id="mailExist" style="font-size: large;"></div>
-                        <uengine:message code="registe.reaffirm.desc"/> </p>
-                    </div>
-
-                    <div class="row" style="margin-top: 30px;">
-                        <button class="btn-u col-centered" id="refresh_timer"><uengine:message code="registe.confirmation.retry"/> </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!--/container-->
-
-
-    <%@include file="../template/footer.jsp" %>
 </div>
-<!--/wrapper-->
 
 <%@include file="../template/footer_js.jsp" %>
 
-<script type="text/javascript">
+</body>
+
+
+<script>
     $(function () {
         var refreshCount = 0;
         var refreshBtn = $('#refresh_timer');
@@ -85,27 +57,32 @@
             e.preventDefault();
             if (refreshCount < 1) {
                 //ajax로 메일재전송을 요청한 후 30초 대기
-                var data = {email : '${responseEmail}'};
+                var data = {userName: '${responseUserName}'};
                 $.ajax({
                     type: "POST",
                     url: "/registe/remail",
                     data: JSON.stringify(data),
                     contentType: "application/json; charset=utf-8",
                     dataType: "text",
-                    success: function (response) {},
-                    error: function (request, status, errorThrown) {}
+                    success: function (response) {
+                    },
+                    error: function (request, status, errorThrown) {
+                    },
+                    complete: function(){
+                        blockStop();
+                    }
                 });
 
                 refreshCount = 30;
-                refreshBtn.text(message.msg('registe.confirmation.retry') + ' (' + msssage.msg('registe.confirmation.retry.timeout') + ' ' + refreshCount + ')');
+                refreshBtn.text('재발송 (대기시간 ' + refreshCount + ')');
                 animateBtn = setInterval(function () {
                     refreshCount = refreshCount - 1;
                     if (refreshCount < 1) {
-                        refreshBtn.text(message.msg('registe.confirmation.retry'));
+                        refreshBtn.text('재발송');
                         clearInterval(animateBtn);
                         animateBtn = null;
-                    }else{
-                        refreshBtn.text(message.msg('registe.confirmation.retry') + ' (' + msssage.msg('registe.confirmation.retry.timeout') + ' ' + refreshCount + ')');
+                    } else {
+                        refreshBtn.text('재발송 (대기시간 ' + refreshCount + ')');
                     }
                 }, 1000);
             }
@@ -114,4 +91,5 @@
 
     })
 </script>
+</body>
 </html>
