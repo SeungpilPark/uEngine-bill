@@ -5,10 +5,11 @@ var uBilling = function (host, port) {
     this.host = host;
     this.port = port;
     this.schema = 'http';
+    this.baseUrl = this.schema + '://' + this.host + ':' + this.port;
 
     $(document).ajaxSend(function (e, xhr, options) {
-        var token = localStorage.getItem('access_token');
-        var organizationId = localStorage.getItem('organization_id');
+        var token = localStorage.getItem('uengine-billing-access_token');
+        var organizationId = localStorage.getItem('uengine-billing-organization_id');
         xhr.setRequestHeader('Authorization', token);
         xhr.setRequestHeader('X-organization-id', organizationId);
     });
@@ -24,18 +25,19 @@ uBilling.prototype = {
         return loginFormObject;
     },
     logout: function () {
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('organization_id');
+        localStorage.removeItem('uengine-billing-access_token');
+        localStorage.removeItem('uengine-billing-organization_id');
     },
 
     login: function (data) {
+        var me = this;
         var username = data.username;
         var password = data.password;
         var scope = data.scope;
         var deferred = $.Deferred();
         var promise = $.ajax({
             type: "POST",
-            url: "/rest/v1/access_token",
+            url: me.baseUrl + '/rest/v1/access_token',
             data: 'username=' + username + '&password=' + password + '&scope=' + scope,
             contentType: "application/x-www-form-urlencoded",
             dataType: "json"
@@ -44,7 +46,7 @@ uBilling.prototype = {
             if (response['access_token']) {
                 console.log('login success');
                 var token = response['access_token'];
-                localStorage.setItem("access_token", token);
+                localStorage.setItem("uengine-billing-access_token", token);
                 deferred.resolve(token);
             } else {
                 console.log('login failed');
@@ -64,11 +66,12 @@ uBilling.prototype = {
     },
     validateToken: function () {
         console.log('Validating token...');
-        var token = localStorage.getItem("access_token");
+        var me = this;
+        var token = localStorage.getItem("uengine-billing-access_token");
         var deferred = $.Deferred();
         var promise = $.ajax({
             type: "GET",
-            url: "/rest/v1/token_info?access_token=" + token,
+            url: me.baseUrl + '/rest/v1/token_info?access_token=' + token,
             dataType: "json",
             async: false
         });
